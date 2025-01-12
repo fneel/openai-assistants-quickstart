@@ -1,5 +1,5 @@
-export let assistantId = ""; // set your assistant ID here
+export let assistantId = "asst_xrzigqaxfr694gddwrdzrzxf"; // KOLLA CITATTECKEN set your assistant ID here
 
-if (assistantId === "") {
+if (assistantId === "asst_xrzigqaxfr694gddwrdzrzxf") {
   assistantId = process.env.OPENAI_ASSISTANT_ID;
 }

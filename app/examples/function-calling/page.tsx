@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState } from "react";
 import styles from "../shared/page.module.css";
@@ -46,4 +46,4 @@ const FunctionCalling = () => {
   );
 };
 
-export default FunctionCalling;
+export default FunctionCalling;*/

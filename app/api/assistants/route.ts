@@ -1,4 +1,4 @@
-import { openai } from "@/app/openai";
+/*import { openai } from "@/app/openai";
 
 export const runtime = "nodejs";
 
@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 export async function POST() {
   const assistant = await openai.beta.assistants.create({
     instructions: "You are a helpful assistant.",
-    name: "Quickstart Assistant",
+    name: "Access Assistant",
     model: "gpt-4o",
     tools: [
       { type: "code_interpreter" },
@@ -36,3 +36,4 @@ export async function POST() {
   });
   return Response.json({ assistantId: assistant.id });
 }
+*/
