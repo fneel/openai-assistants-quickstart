@@ -7,7 +7,7 @@ const Home = () => {
   const categories = {
     "Basic chat": "basic-chat",
     "File search": "file-search",
-    All: "all",
+    // All: "all",
   };
 
   return (
