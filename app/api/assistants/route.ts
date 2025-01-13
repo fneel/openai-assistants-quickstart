@@ -1,38 +1,35 @@
-import { openai } from "@/app/openai";
+import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-// Create a new assistant
-export async function POST() {
-  const assistant = await openai.beta.assistants.create({
-    instructions: "You are a helpful assistant.",
-    name: "Access Assistant",
-    model: "gpt-4o",
-    tools: [
-      { type: "code_interpreter" },
+export async function POST(request: Request) {
+  try {
+    // Hämta användarens meddelande från förfrågan
+    const { userMessage } = await request.json();
+
+    // Skicka förfrågan till OpenAI Assistants API
+    const response = await fetch(
+      `https://api.openai.com/v1/assistants/${process.env.OPENAI_ASSISTANT_ID}/completions`,
       {
-        type: "function",
-        function: {
-          name: "get_weather",
-          description: "Determine weather in my location",
-          parameters: {
-            type: "object",
-            properties: {
-              location: {
-                type: "string",
-                description: "The city and state e.g. San Francisco, CA",
-              },
-              unit: {
-                type: "string",
-                enum: ["c", "f"],
-              },
-            },
-            required: ["location"],
-          },
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
         },
-      },
-      { type: "file_search" },
-    ],
-  });
-  return Response.json({ assistantId: assistant.id });
+        body: JSON.stringify({
+          messages: [{ role: "user", content: userMessage }],
+        }),
+      }
+    );
+
+    // Bearbeta svaret från OpenAI
+    const data = await response.json();
+    const assistantMessage =
+      data.choices?.[0]?.message?.content || "Inget svar.";
+
+    // Returnera svaret till frontend
+    return NextResponse.json({ reply: assistantMessage });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }
