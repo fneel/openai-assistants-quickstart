@@ -1,4 +1,4 @@
-/*import { openai } from "@/app/openai";
+import { openai } from "@/app/openai";
 
 export const runtime = "nodejs";
 
@@ -36,4 +36,3 @@ export async function POST() {
   });
   return Response.json({ assistantId: assistant.id });
 }
-*/
